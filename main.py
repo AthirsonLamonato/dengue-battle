@@ -8,7 +8,7 @@ from GoodAction import BoasAcoes
 def tela_inicial(tela, largura_tela, altura_tela, fundo_imagem):
 
     # Criação dos textos
-    titulo_texto = pygame.font.SysFont(None, 50).render("A Batalha contra a Dengue", True, (255, 255, 255))
+    titulo_texto = pygame.font.SysFont(None, 50).render("Dengue Battle", True, (255, 255, 255))
     jogar_texto = pygame.font.SysFont(None, 30).render("Jogar", True, (255, 255, 255))
     sair_texto = pygame.font.SysFont(None, 30).render("Sair", True, (255, 255, 255))
 
