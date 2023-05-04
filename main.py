@@ -4,7 +4,6 @@ from Player import Jogador
 from Enemy import Inimigo
 from GoodAction import BoasAcoes
 
-
 def tela_inicial(tela, largura_tela, altura_tela, fundo_imagem):
 
     # Criação dos textos
@@ -91,9 +90,13 @@ def tela_game_over(tela, largura_tela, altura_tela, fundo_imagem, jogador):
                 quit()
 
 
-def remover_sprites_fora_da_tela(sprite, altura_tela):
-    if sprite.rect.y > altura_tela:
-        sprite.kill()
+
+# Verifica se a posição vertical do sprite é maior que a altura da tela.
+# Se for maior remove a sprite da tela
+def remover_sprites_fora_da_tela(grupo_sprites, altura_tela):
+    for sprite in grupo_sprites:
+        if sprite.rect.y > altura_tela:
+            sprite.kill()
 
 # Verifica se existe colisão dentro do mesmo grupo de sprites
 def colisao_grupo(sprite, grupo_sprites):
@@ -102,9 +105,13 @@ def colisao_grupo(sprite, grupo_sprites):
             return True
     return False
 
+
+# Verifica se o numero de sprites no grupo é menor que dois, se for, gera uma quantidade de sprites aleatória entre 1 e 5
+# Verifica se a sprite gerada colide com alguem do mesmo grupo, e move para outra posição
+
 def gerar_sprites_aleatorios(sprite_grupo, sprite, largura_tela):
     if len(sprite_grupo.sprites()) < 2:
-        quantidade = random.randint(1, 3)
+        quantidade = random.randint(1, 5)
         for i in range(quantidade):
             novo_sprite = sprite.__class__()
             novo_sprite.rect.x = random.randint(0, largura_tela - novo_sprite.rect.width)
@@ -112,7 +119,6 @@ def gerar_sprites_aleatorios(sprite_grupo, sprite, largura_tela):
             while colisao_grupo(novo_sprite, sprite_grupo):
                 novo_sprite.rect.x = random.randint(0, largura_tela - novo_sprite.rect.width)
             sprite_grupo.add(novo_sprite)
-
 
 def jogo():
     
@@ -188,8 +194,8 @@ def jogo():
         tela.blit(pontos_texto, (10, 10))
 
         # Remoção de sprites que saíram da tela
-        remover_sprites_fora_da_tela(BoasAcoes(), altura_tela)
-        remover_sprites_fora_da_tela(Inimigo(), altura_tela,)
+        remover_sprites_fora_da_tela(grupo_acoes, altura_tela)
+        remover_sprites_fora_da_tela(grupo_inimigos, altura_tela)
 
         # Geração de novos sprites aleatórios
         gerar_sprites_aleatorios(grupo_inimigos,  Inimigo(), largura_tela)
