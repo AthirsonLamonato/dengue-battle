@@ -222,5 +222,4 @@ def jogo():
         pygame.display.update()  # Atualiza a tela
         relogio.tick(60)  # Define a taxa de atualização do jogo
 
-
 jogo()
